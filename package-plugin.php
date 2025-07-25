@@ -26,7 +26,7 @@ if ( ! class_exists( 'ZipArchive' ) ) {
 function fashion_variation_swatches_package_plugin() {
     $plugin_dir = __DIR__;
     $plugin_name = 'fashion-variation-swatches-for-woocommerce-elementor';
-    $version = '1.0.3';
+    $version = '1.0.4';
     
     // Create package directory
     $package_dir = $plugin_dir . '/package';

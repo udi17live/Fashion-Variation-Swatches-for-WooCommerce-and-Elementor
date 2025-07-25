@@ -3,7 +3,7 @@
  * Plugin Name: Fashion Variation Swatches for WooCommerce and Elementor
  * Plugin URI: https://github.com/uditha-mahindarathna/fashion-variation-swatches
  * Description: Add beautiful size and color variation swatches to WooCommerce products with Elementor widget support. Perfect for fashion and apparel stores. Compatible with WooCommerce HPOS.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Uditha Mahindarathna
  * Author URI: mailto:melan.udi@gmail.com
  * Text Domain: fashion-variation-swatches
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'FASHION_VARIATION_SWATCHES_VERSION', '1.0.3' );
+define( 'FASHION_VARIATION_SWATCHES_VERSION', '1.0.4' );
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_FILE', __FILE__ );
 
 // Use a more robust plugin directory definition
@@ -36,6 +36,33 @@ if ( empty( $plugin_dir ) ) {
     $plugin_dir = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
 }
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_DIR', $plugin_dir );
+
+/**
+ * Get the actual plugin directory path, handling versioned directory names
+ *
+ * @return string
+ */
+function fashion_variation_swatches_get_plugin_dir() {
+    $plugin_dir = FASHION_VARIATION_SWATCHES_PLUGIN_DIR;
+    
+    // If the plugin is installed in a versioned directory, we need to find the actual plugin files
+    // WordPress sometimes extracts plugins to directories like: plugin-name-v1.0.4/
+    // but the files are actually in: plugin-name-v1.0.4/plugin-name/
+    
+    $base_plugin_name = 'fashion-variation-swatches-for-woocommerce-elementor';
+    
+    // Check if we're in a versioned directory
+    $current_dir = basename( dirname( __FILE__ ) );
+    if ( strpos( $current_dir, $base_plugin_name ) === 0 && strpos( $current_dir, '-v' ) !== false ) {
+        // We're in a versioned directory, check if the actual plugin directory exists
+        $actual_plugin_dir = $plugin_dir . $base_plugin_name . '/';
+        if ( is_dir( $actual_plugin_dir ) ) {
+            return $actual_plugin_dir;
+        }
+    }
+    
+    return $plugin_dir;
+}
 
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -154,8 +181,12 @@ final class Fashion_Variation_Swatches {
         ];
 
         foreach ( $required_files as $file ) {
+            // Get the actual plugin directory path
+            $actual_plugin_dir = fashion_variation_swatches_get_plugin_dir();
+            
             // Try multiple path construction methods
             $file_paths = [
+                $actual_plugin_dir . $file,
                 FASHION_VARIATION_SWATCHES_PLUGIN_DIR . $file,
                 dirname( __FILE__ ) . DIRECTORY_SEPARATOR . $file,
                 dirname( __FILE__ ) . '/' . $file,
@@ -192,7 +223,8 @@ final class Fashion_Variation_Swatches {
         
         // Elementor integration
         if ( defined( 'ELEMENTOR_VERSION' ) ) {
-            $elementor_file = FASHION_VARIATION_SWATCHES_PLUGIN_DIR . 'includes/elementor/class-fashion-variation-swatches-elementor.php';
+            $actual_plugin_dir = fashion_variation_swatches_get_plugin_dir();
+            $elementor_file = $actual_plugin_dir . 'includes/elementor/class-fashion-variation-swatches-elementor.php';
             if ( file_exists( $elementor_file ) ) {
                 require_once $elementor_file;
             }
@@ -257,8 +289,12 @@ final class Fashion_Variation_Swatches {
 
         $missing_files = [];
         foreach ( $required_files as $file ) {
+            // Get the actual plugin directory path
+            $actual_plugin_dir = fashion_variation_swatches_get_plugin_dir();
+            
             // Try multiple path construction methods
             $file_paths = [
+                $actual_plugin_dir . $file,
                 FASHION_VARIATION_SWATCHES_PLUGIN_DIR . $file,
                 dirname( __FILE__ ) . DIRECTORY_SEPARATOR . $file,
                 dirname( __FILE__ ) . '/' . $file,
