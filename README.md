@@ -214,7 +214,7 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](LICENSE) 
 
 - **Author**: Uditha Mahindarathna
 - **Email**: melan.udi@gmail.com
-- **Plugin URI**: https://github.com/udi17live/Fashion-Variation-Swatches-for-WooCommerce-and-Elementor
+- **Plugin URI**: https://github.com/udi17live/fashion-variation-swatches-for-woocommerce-elementor
 
 ## 📈 Changelog
 
