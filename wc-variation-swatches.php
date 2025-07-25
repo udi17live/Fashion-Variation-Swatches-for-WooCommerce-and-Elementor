@@ -3,7 +3,7 @@
  * Plugin Name: Fashion Variation Swatches for WooCommerce and Elementor
  * Plugin URI: https://github.com/uditha-mahindarathna/fashion-variation-swatches
  * Description: Add beautiful size and color variation swatches to WooCommerce products with Elementor widget support. Perfect for fashion and apparel stores. Compatible with WooCommerce HPOS.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Uditha Mahindarathna
  * Author URI: mailto:melan.udi@gmail.com
  * Text Domain: fashion-variation-swatches
@@ -26,9 +26,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'FASHION_VARIATION_SWATCHES_VERSION', '1.0.2' );
+define( 'FASHION_VARIATION_SWATCHES_VERSION', '1.0.3' );
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_FILE', __FILE__ );
-define( 'FASHION_VARIATION_SWATCHES_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
+// Use a more robust plugin directory definition
+$plugin_dir = plugin_dir_path( __FILE__ );
+if ( empty( $plugin_dir ) ) {
+    // Fallback to dirname if plugin_dir_path fails
+    $plugin_dir = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
+}
+define( 'FASHION_VARIATION_SWATCHES_PLUGIN_DIR', $plugin_dir );
+
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
@@ -133,6 +141,9 @@ final class Fashion_Variation_Swatches {
      * Include required files
      */
     private function includes() {
+        // Debug: Log the plugin directory path
+        error_log( 'Fashion Variation Swatches - Includes function - Plugin Directory: ' . FASHION_VARIATION_SWATCHES_PLUGIN_DIR );
+        
         // Core classes
         $required_files = [
             'includes/class-fashion-variation-swatches-core.php',
@@ -143,12 +154,31 @@ final class Fashion_Variation_Swatches {
         ];
 
         foreach ( $required_files as $file ) {
-            $file_path = FASHION_VARIATION_SWATCHES_PLUGIN_DIR . $file;
-            if ( file_exists( $file_path ) ) {
-                require_once $file_path;
+            // Try multiple path construction methods
+            $file_paths = [
+                FASHION_VARIATION_SWATCHES_PLUGIN_DIR . $file,
+                dirname( __FILE__ ) . DIRECTORY_SEPARATOR . $file,
+                dirname( __FILE__ ) . '/' . $file,
+            ];
+            
+            $file_found = false;
+            $actual_path = '';
+            
+            foreach ( $file_paths as $file_path ) {
+                error_log( 'Fashion Variation Swatches - Includes function - Trying path: ' . $file_path . ' - Exists: ' . ( file_exists( $file_path ) ? 'Yes' : 'No' ) );
+                
+                if ( file_exists( $file_path ) ) {
+                    $file_found = true;
+                    $actual_path = $file_path;
+                    break;
+                }
+            }
+            
+            if ( $file_found ) {
+                require_once $actual_path;
             } else {
                 // Log error and deactivate plugin if critical files are missing
-                error_log( 'Fashion Variation Swatches: Missing required file: ' . $file_path );
+                error_log( 'Fashion Variation Swatches: Missing required file: ' . $file . ' - Tried paths: ' . implode( ', ', $file_paths ) );
                 add_action( 'admin_notices', function() use ( $file ) {
                     echo '<div class="notice notice-error"><p>';
                     echo '<strong>Fashion Variation Swatches Error:</strong> ';
@@ -213,6 +243,9 @@ final class Fashion_Variation_Swatches {
      * Plugin activation
      */
     public function activate() {
+        // Debug: Log the plugin directory path
+        error_log( 'Fashion Variation Swatches - Plugin Directory: ' . FASHION_VARIATION_SWATCHES_PLUGIN_DIR );
+        
         // Check if all required files exist
         $required_files = [
             'includes/class-fashion-variation-swatches-core.php',
@@ -224,7 +257,25 @@ final class Fashion_Variation_Swatches {
 
         $missing_files = [];
         foreach ( $required_files as $file ) {
-            if ( ! file_exists( FASHION_VARIATION_SWATCHES_PLUGIN_DIR . $file ) ) {
+            // Try multiple path construction methods
+            $file_paths = [
+                FASHION_VARIATION_SWATCHES_PLUGIN_DIR . $file,
+                dirname( __FILE__ ) . DIRECTORY_SEPARATOR . $file,
+                dirname( __FILE__ ) . '/' . $file,
+            ];
+            
+            $file_found = false;
+            
+            foreach ( $file_paths as $full_path ) {
+                error_log( 'Fashion Variation Swatches - Checking file: ' . $full_path . ' - Exists: ' . ( file_exists( $full_path ) ? 'Yes' : 'No' ) );
+                
+                if ( file_exists( $full_path ) ) {
+                    $file_found = true;
+                    break;
+                }
+            }
+            
+            if ( ! $file_found ) {
                 $missing_files[] = $file;
             }
         }
@@ -236,6 +287,7 @@ final class Fashion_Variation_Swatches {
                 '<h1>Plugin Activation Error</h1>' .
                 '<p><strong>Fashion Variation Swatches</strong> could not be activated because the following required files are missing:</p>' .
                 '<ul><li>' . implode( '</li><li>', array_map( 'esc_html', $missing_files ) ) . '</li></ul>' .
+                '<p>Plugin Directory: <code>' . esc_html( FASHION_VARIATION_SWATCHES_PLUGIN_DIR ) . '</code></p>' .
                 '<p>Please reinstall the plugin or contact support.</p>' .
                 '<p><a href="' . admin_url( 'plugins.php' ) . '">Return to Plugins page</a></p>'
             );

@@ -15,6 +15,19 @@ if ( ! defined( 'ABSPATH' ) ) {
             exit;
         }
     }
+    
+    // Define WordPress functions if not available
+    if ( ! function_exists( 'esc_html' ) ) {
+        function esc_html( $text ) {
+            return htmlspecialchars( $text, ENT_QUOTES, 'UTF-8' );
+        }
+    }
+    
+    if ( ! function_exists( 'get_bloginfo' ) ) {
+        function get_bloginfo( $show = '' ) {
+            return 'WordPress Site';
+        }
+    }
 }
 
 // Define plugin constants if not already defined

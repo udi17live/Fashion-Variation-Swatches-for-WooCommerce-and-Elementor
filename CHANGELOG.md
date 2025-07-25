@@ -75,6 +75,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Plugin conflict prevention
 - Debug mode support
 
+## [1.0.3] - 2025-01-27
+
+### Fixed
+- **Critical Path Resolution Bug**: Fixed plugin directory path resolution issues that caused "file does not exist" errors
+- **Enhanced Path Construction**: Implemented multiple path construction methods to handle different server configurations
+- **Robust File Discovery**: Added fallback path resolution using `dirname(__FILE__)` and `DIRECTORY_SEPARATOR`
+- **Cross-Platform Compatibility**: Improved compatibility with Windows and Unix-based server environments
+- **Path Normalization**: Better handling of directory separators and path construction
+
+### Technical Improvements
+- **Multiple Path Attempts**: Plugin now tries multiple path construction methods before failing
+- **Enhanced Debugging**: Added detailed logging of path resolution attempts for troubleshooting
+- **Fallback Mechanisms**: Implemented robust fallback for plugin directory path resolution
+- **Directory Separator Handling**: Proper handling of different directory separators across platforms
+
+### Compatibility
+- **Enhanced Windows Compatibility**: Better support for Windows server environments
+- **Improved Unix Compatibility**: Enhanced support for Linux/Unix server configurations
+- **Cross-Platform Path Handling**: Consistent behavior across different operating systems
+
 ## [1.0.2] - 2025-01-27
 
 ### Fixed
