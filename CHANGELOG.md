@@ -75,6 +75,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Plugin conflict prevention
 - Debug mode support
 
+## [1.0.5] - 2025-01-27
+
+### Fixed
+- **Critical Path Resolution Bug**: Fixed plugin directory path resolution that was incorrectly looking for subdirectories
+- **Enhanced Directory Detection**: Improved logic to correctly identify the actual plugin directory structure
+- **Robust File Discovery**: Added comprehensive directory checking to find the correct includes directory
+- **WordPress Installation Compatibility**: Fixed compatibility with WordPress plugin installation and extraction process
+
+### Technical Improvements
+- **Improved Path Resolution Logic**: Enhanced `fashion_variation_swatches_get_plugin_dir()` function with better directory detection
+- **Enhanced Debugging**: Added detailed logging of directory discovery process for troubleshooting
+- **Better Error Handling**: More robust handling of different directory structures during plugin activation
+- **Cross-Installation Compatibility**: Works correctly with WordPress plugin extraction behavior
+
+### Compatibility
+- **WordPress Plugin Installation**: Fixed compatibility with WordPress plugin installation process
+- **Versioned Directory Support**: Proper handling of versioned directory names during installation
+- **Enhanced Installation Reliability**: More reliable plugin activation across different WordPress configurations
+
 ## [1.0.4] - 2025-01-27
 
 ### Fixed

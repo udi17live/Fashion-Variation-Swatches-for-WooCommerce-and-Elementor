@@ -31,16 +31,34 @@ A beautiful and professional WordPress plugin that transforms WooCommerce produc
 ### Installation
 
 1. **Download** the plugin files
-2. **Upload** to `/wp-content/plugins/wc-variation-swatches/`
+2. **Upload** to `/wp-content/plugins/fashion-variation-swatches-for-woocommerce-elementor/`
 3. **Activate** the plugin in WordPress Admin > Plugins
 4. **Configure** settings in WooCommerce > Variation Swatches
+
+### ⚠️ Important Installation Notes
+
+**Preventing Versioned Directory Issues:**
+
+The plugin should be installed in the directory: `fashion-variation-swatches-for-woocommerce-elementor`
+
+If you see directories like `fashion-variation-swatches-for-woocommerce-elementor-v1.0.5`, this indicates an extraction issue.
+
+**To fix this:**
+1. Remove any ZIP files from the plugins directory
+2. Delete any versioned directories (ending with `-v1.0.x`)
+3. Reinstall the plugin properly
+
+**Use the cleanup script if needed:**
+```
+Access: /wp-content/plugins/fashion-variation-swatches-for-woocommerce-elementor/cleanup-installation.php
+```
 
 ### Demo Setup
 
 Run the demo setup script to see the plugin in action:
 
 ```
-Access: /wp-content/plugins/wc-variation-swatches/demo-setup.php
+Access: /wp-content/plugins/fashion-variation-swatches-for-woocommerce-elementor/demo-setup.php
 ```
 
 This will create sample attributes and a demo product with all variations.

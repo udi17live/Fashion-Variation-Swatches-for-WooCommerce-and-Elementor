@@ -3,7 +3,7 @@
  * Plugin Name: Fashion Variation Swatches for WooCommerce and Elementor
  * Plugin URI: https://github.com/uditha-mahindarathna/fashion-variation-swatches
  * Description: Add beautiful size and color variation swatches to WooCommerce products with Elementor widget support. Perfect for fashion and apparel stores. Compatible with WooCommerce HPOS.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Uditha Mahindarathna
  * Author URI: mailto:melan.udi@gmail.com
  * Text Domain: fashion-variation-swatches
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'FASHION_VARIATION_SWATCHES_VERSION', '1.0.4' );
+define( 'FASHION_VARIATION_SWATCHES_VERSION', '1.0.5' );
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_FILE', __FILE__ );
 
 // Use a more robust plugin directory definition
@@ -45,22 +45,49 @@ define( 'FASHION_VARIATION_SWATCHES_PLUGIN_DIR', $plugin_dir );
 function fashion_variation_swatches_get_plugin_dir() {
     $plugin_dir = FASHION_VARIATION_SWATCHES_PLUGIN_DIR;
     
-    // If the plugin is installed in a versioned directory, we need to find the actual plugin files
-    // WordPress sometimes extracts plugins to directories like: plugin-name-v1.0.4/
-    // but the files are actually in: plugin-name-v1.0.4/plugin-name/
+    // Log the current directory for debugging
+    error_log( 'Fashion Variation Swatches - Current directory: ' . dirname( __FILE__ ) );
+    error_log( 'Fashion Variation Swatches - Plugin directory: ' . $plugin_dir );
     
+    // Check if the includes directory exists in the current plugin directory
+    $includes_dir = $plugin_dir . 'includes/';
+    if ( is_dir( $includes_dir ) ) {
+        error_log( 'Fashion Variation Swatches - Includes directory found at: ' . $includes_dir );
+        return $plugin_dir;
+    }
+    
+    // If not found, try alternative paths
     $base_plugin_name = 'fashion-variation-swatches-for-woocommerce-elementor';
-    
-    // Check if we're in a versioned directory
     $current_dir = basename( dirname( __FILE__ ) );
-    if ( strpos( $current_dir, $base_plugin_name ) === 0 && strpos( $current_dir, '-v' ) !== false ) {
-        // We're in a versioned directory, check if the actual plugin directory exists
-        $actual_plugin_dir = $plugin_dir . $base_plugin_name . '/';
+    
+    // Check if we're in a versioned directory (e.g., -v1.0.5)
+    if ( preg_match( '/^' . preg_quote( $base_plugin_name, '/' ) . '-v\d+\.\d+\.\d+/', $current_dir ) ) {
+        // We're in a versioned directory, try to find the actual plugin directory
+        $parent_dir = dirname( $plugin_dir ) . '/';
+        $actual_plugin_dir = $parent_dir . $base_plugin_name . '/';
         if ( is_dir( $actual_plugin_dir ) ) {
+            error_log( 'Fashion Variation Swatches - Found actual plugin directory at: ' . $actual_plugin_dir );
             return $actual_plugin_dir;
         }
     }
     
+    // Try parent directory
+    $parent_dir = dirname( $plugin_dir ) . '/';
+    $parent_includes_dir = $parent_dir . 'includes/';
+    if ( is_dir( $parent_includes_dir ) ) {
+        error_log( 'Fashion Variation Swatches - Found includes directory in parent: ' . $parent_includes_dir );
+        return $parent_dir;
+    }
+    
+    // Try to find the plugin directory by searching in the plugins directory
+    $wp_plugins_dir = WP_PLUGIN_DIR . '/';
+    $actual_plugin_dir = $wp_plugins_dir . $base_plugin_name . '/';
+    if ( is_dir( $actual_plugin_dir ) && is_dir( $actual_plugin_dir . 'includes/' ) ) {
+        error_log( 'Fashion Variation Swatches - Found plugin directory in wp-content/plugins: ' . $actual_plugin_dir );
+        return $actual_plugin_dir;
+    }
+    
+    error_log( 'Fashion Variation Swatches - Using default plugin directory: ' . $plugin_dir );
     return $plugin_dir;
 }
 
@@ -278,6 +305,28 @@ final class Fashion_Variation_Swatches {
         // Debug: Log the plugin directory path
         error_log( 'Fashion Variation Swatches - Plugin Directory: ' . FASHION_VARIATION_SWATCHES_PLUGIN_DIR );
         
+        // Check if we're in a versioned directory and provide guidance
+        $current_dir = basename( dirname( __FILE__ ) );
+        $base_plugin_name = 'fashion-variation-swatches-for-woocommerce-elementor';
+        
+        if ( preg_match( '/^' . preg_quote( $base_plugin_name, '/' ) . '-v\d+\.\d+\.\d+/', $current_dir ) ) {
+            // We're in a versioned directory, this is likely an extraction issue
+            deactivate_plugins( plugin_basename( __FILE__ ) );
+            wp_die(
+                '<h1>Plugin Installation Issue Detected</h1>' .
+                '<p><strong>Fashion Variation Swatches</strong> appears to be installed in a versioned directory: <code>' . esc_html( $current_dir ) . '</code></p>' .
+                '<p>This typically happens when ZIP files are extracted incorrectly. To fix this:</p>' .
+                '<ol>' .
+                '<li>Deactivate and delete the current plugin installation</li>' .
+                '<li>Remove any ZIP files from the plugins directory</li>' .
+                '<li>Reinstall the plugin properly</li>' .
+                '</ol>' .
+                '<p><strong>Current Directory:</strong> <code>' . esc_html( dirname( __FILE__ ) ) . '</code></p>' .
+                '<p><strong>Expected Directory:</strong> <code>' . esc_html( dirname( dirname( __FILE__ ) ) . '/' . $base_plugin_name ) . '</code></p>' .
+                '<p><a href="' . admin_url( 'plugins.php' ) . '">Return to Plugins page</a></p>'
+            );
+        }
+        
         // Check if all required files exist
         $required_files = [
             'includes/class-fashion-variation-swatches-core.php',
@@ -323,7 +372,9 @@ final class Fashion_Variation_Swatches {
                 '<h1>Plugin Activation Error</h1>' .
                 '<p><strong>Fashion Variation Swatches</strong> could not be activated because the following required files are missing:</p>' .
                 '<ul><li>' . implode( '</li><li>', array_map( 'esc_html', $missing_files ) ) . '</li></ul>' .
-                '<p>Plugin Directory: <code>' . esc_html( FASHION_VARIATION_SWATCHES_PLUGIN_DIR ) . '</code></p>' .
+                '<p><strong>Plugin Directory:</strong> <code>' . esc_html( FASHION_VARIATION_SWATCHES_PLUGIN_DIR ) . '</code></p>' .
+                '<p><strong>Actual Plugin Directory:</strong> <code>' . esc_html( fashion_variation_swatches_get_plugin_dir() ) . '</code></p>' .
+                '<p><strong>Current File:</strong> <code>' . esc_html( __FILE__ ) . '</code></p>' .
                 '<p>Please reinstall the plugin or contact support.</p>' .
                 '<p><a href="' . admin_url( 'plugins.php' ) . '">Return to Plugins page</a></p>'
             );
