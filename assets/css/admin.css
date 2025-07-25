@@ -1,0 +1,297 @@
+/**
+ * WC Variation Swatches - Admin Styles
+ * Version: 1.0.0
+ */
+
+/* Admin Settings Page */
+.fashion-variation-swatches-admin-header {
+    background: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.fashion-variation-swatches-admin-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.fashion-variation-swatches-admin-help {
+    background: #f9f9f9;
+    padding: 20px;
+    margin: 30px 0 0 0;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+}
+
+.fashion-variation-swatches-help-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.help-section {
+    background: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.help-section h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.help-section p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Settings Form Styling */
+.form-table th {
+    width: 200px;
+    font-weight: 600;
+}
+
+.form-table td {
+    padding: 15px 10px;
+}
+
+.form-table select,
+.form-table input[type="text"],
+.form-table input[type="number"] {
+    min-width: 250px;
+}
+
+.form-table .description {
+    margin-top: 8px;
+    font-style: italic;
+    color: #666;
+}
+
+/* Color Picker Styling */
+.fashion-variation-swatches-color-picker {
+    width: 100px !important;
+    min-width: 100px !important;
+}
+
+.wp-picker-container {
+    margin-top: 5px;
+}
+
+.wp-picker-container .wp-color-result {
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.wp-picker-container .wp-picker-input-wrap {
+    margin-top: 8px;
+}
+
+/* Color Preview in Attributes List */
+.fashion-variation-swatches-color-preview {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+
+/* Enhanced Color Field Styling */
+.form-field .fashion-variation-swatches-color-picker,
+.form-field-term .fashion-variation-swatches-color-picker {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.color-field-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-preview {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Responsive Admin Styles */
+@media (max-width: 768px) {
+    .fashion-variation-swatches-help-content {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .fashion-variation-swatches-admin-header {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .form-table th {
+        width: auto;
+        display: block;
+        padding-bottom: 5px;
+    }
+    
+    .form-table td {
+        display: block;
+        padding-top: 5px;
+    }
+    
+    .form-table select,
+    .form-table input[type="text"],
+    .form-table input[type="number"] {
+        min-width: 200px;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Settings Sections */
+.form-table h2 {
+    margin: 30px 0 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+/* Checkbox Styling */
+.form-table input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.form-table label {
+    display: inline-flex;
+    align-items: center;
+    font-weight: normal;
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-indicator.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-indicator.inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-indicator::before {
+    content: "●";
+    font-size: 8px;
+}
+
+/* Plugin Action Links */
+.plugin-action-links {
+    margin-top: 10px;
+}
+
+.plugin-action-links a {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Notice Styling */
+.notice.fashion-variation-swatches-notice {
+    border-left-color: #00a0d2;
+    padding: 12px;
+}
+
+.notice.fashion-variation-swatches-notice p {
+    margin: 0.5em 0;
+}
+
+/* Loading States */
+.loading .form-table {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.settings-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0073aa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading .settings-spinner {
+    display: inline-block;
+}
+
+/* Accessibility Improvements */
+.form-table label:focus-within {
+    outline: 2px solid #005fcc;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.form-table select:focus,
+.form-table input:focus {
+    border-color: #005fcc;
+    box-shadow: 0 0 0 1px #005fcc;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .fashion-variation-swatches-color-preview {
+        border: 2px solid #000;
+    }
+    
+    .status-indicator.active {
+        background: #fff;
+        color: #000;
+        border: 1px solid #000;
+    }
+    
+    .status-indicator.inactive {
+        background: #000;
+        color: #fff;
+        border: 1px solid #000;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .fashion-variation-swatches-admin-help,
+    .wp-picker-container,
+    .button {
+        display: none !important;
+    }
+    
+    .form-table {
+        page-break-inside: avoid;
+    }
+} 

@@ -1,0 +1,61 @@
+/**
+ * WC Variation Swatches - Elementor Editor Styles
+ * Version: 1.0.0
+ */
+
+/* Widget Icons in Elementor Panel */
+.elementor-panel .elementor-element .icon {
+    font-size: 28px;
+}
+
+/* Widget Preview in Editor */
+.elementor-widget-fashion-size-swatches .fashion-size-swatches-widget,
+.elementor-widget-fashion-color-swatches .fashion-color-swatches-widget {
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    min-height: 100px;
+}
+
+/* Widget Titles in Editor */
+.elementor-widget-fashion-size-swatches .fashion-size-swatches-title,
+.elementor-widget-fashion-color-swatches .fashion-color-swatches-title {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Swatch Preview in Editor */
+.elementor-editor .fashion-swatch {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.elementor-editor .wc-size-swatch {
+    min-width: 35px;
+    height: 35px;
+    margin: 0 5px 5px 0;
+}
+
+.elementor-editor .wc-color-swatch {
+    width: 35px;
+    height: 35px;
+    margin: 0 5px 5px 0;
+}
+
+/* Editor-specific overrides */
+.elementor-editor .fashion-variation-swatches {
+    gap: 5px;
+}
+
+/* Widget Category Styling */
+.elementor-panel .elementor-panel-category-title {
+    background: #6d4c41;
+    color: white;
+}
+
+/* Control Styling */
+.elementor-control-wc_swatch_style select,
+.elementor-control-color_attribute select,
+.elementor-control-size_attribute select {
+    width: 100%;
+} 

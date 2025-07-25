@@ -1,0 +1,271 @@
+# Copyright (C) 2025 Fashion Variation Swatches for WooCommerce and Elementor
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Fashion Variation Swatches for WooCommerce and Elementor 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-variation-swatches\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-01-27T00:00:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: fashion-variation-swatches\n"
+
+#. Plugin Name of the plugin
+msgid "Fashion Variation Swatches for WooCommerce and Elementor"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/wc-variation-swatches/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Add beautiful size and color variation swatches to WooCommerce products with Elementor widget support. Perfect for apparel stores."
+msgstr ""
+
+#. Author of the plugin
+msgid "Uditha Mahindarathna"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "mailto:your-email@example.com"
+msgstr ""
+
+msgid "WooCommerce Variation Swatches requires WooCommerce to be installed and active."
+msgstr ""
+
+msgid "WooCommerce Variation Swatches requires PHP version 7.4 or higher. You are running version %s."
+msgstr ""
+
+msgid "Choose an option"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "Select the color for this attribute term."
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "XS"
+msgstr ""
+
+msgid "S"
+msgstr ""
+
+msgid "M"
+msgstr ""
+
+msgid "L"
+msgstr ""
+
+msgid "XL"
+msgstr ""
+
+msgid "XXL"
+msgstr ""
+
+msgid "Red"
+msgstr ""
+
+msgid "Green"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
+
+msgid "Black"
+msgstr ""
+
+msgid "White"
+msgstr ""
+
+msgid "Yellow"
+msgstr ""
+
+msgid "Filter by Size"
+msgstr ""
+
+msgid "Filter by Color"
+msgstr ""
+
+msgid "No products found matching your selection."
+msgstr ""
+
+msgid "Security check failed"
+msgstr ""
+
+msgid "Variation Swatches"
+msgstr ""
+
+msgid "WooCommerce Variation Swatches Settings"
+msgstr ""
+
+msgid "Configure your variation swatches settings below. You can customize the appearance and behavior of size and color swatches for your WooCommerce products."
+msgstr ""
+
+msgid "General Settings"
+msgstr ""
+
+msgid "Configure the basic settings for your variation swatches."
+msgstr ""
+
+msgid "Size Attribute"
+msgstr ""
+
+msgid "Select which attribute should be used for size swatches."
+msgstr ""
+
+msgid "Color Attribute"
+msgstr ""
+
+msgid "Select which attribute should be used for color swatches."
+msgstr ""
+
+msgid "Size Swatch Style"
+msgstr ""
+
+msgid "Choose the visual style for size swatches."
+msgstr ""
+
+msgid "Square"
+msgstr ""
+
+msgid "Rounded"
+msgstr ""
+
+msgid "Circle"
+msgstr ""
+
+msgid "Color Swatch Style"
+msgstr ""
+
+msgid "Choose the visual style for color swatches."
+msgstr ""
+
+msgid "Enable Tooltips"
+msgstr ""
+
+msgid "Show tooltips on hover"
+msgstr ""
+
+msgid "Display attribute names as tooltips when hovering over swatches."
+msgstr ""
+
+msgid "Enable Shop Filters"
+msgstr ""
+
+msgid "Enable filtering on shop page"
+msgstr ""
+
+msgid "Add size and color filter widgets to the shop page sidebar."
+msgstr ""
+
+msgid "Help & Documentation"
+msgstr ""
+
+msgid "Setting up Attributes"
+msgstr ""
+
+msgid "Go to Products > Attributes to manage your size and color attributes. For color attributes, you can set individual colors for each term."
+msgstr ""
+
+msgid "Elementor Widgets"
+msgstr ""
+
+msgid "When editing with Elementor, look for \"WC Size Swatches\" and \"WC Color Swatches\" widgets in the WooCommerce category."
+msgstr ""
+
+msgid "Shop Filters"
+msgstr ""
+
+msgid "Enable shop filters to add size and color filtering widgets to your shop page sidebar automatically."
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "WC Size Swatches"
+msgstr ""
+
+msgid "WC Color Swatches"
+msgstr ""
+
+msgid "WC Variation Swatches"
+msgstr ""
+
+msgid "WooCommerce is required for this widget."
+msgstr ""
+
+msgid "No size options found."
+msgstr ""
+
+msgid "No color options found."
+msgstr ""
+
+msgid "Content"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Enter title"
+msgstr ""
+
+msgid "Show Title"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Hide"
+msgstr ""
+
+msgid "Show Labels"
+msgstr ""
+
+msgid "Swatch Style"
+msgstr ""
+
+msgid "Enable Tooltip"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Margin"
+msgstr ""
+
+msgid "Swatches"
+msgstr ""
+
+msgid "Spacing"
+msgstr ""
+
+msgid "Normal"
+msgstr ""
+
+msgid "Text Color"
+msgstr ""
+
+msgid "Background Color"
+msgstr ""
+
+msgid "Hover"
+msgstr ""
+
+msgid "Selected"
+msgstr ""
+
+msgid "Scale"
+msgstr ""
+
+msgid "Labels"
+msgstr "" 

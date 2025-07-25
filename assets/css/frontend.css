@@ -1,0 +1,354 @@
+/**
+ * WC Variation Swatches - Frontend Styles
+ * Version: 1.0.0
+ */
+
+/* Main Variation Swatches Container */
+.fashion-variation-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+/* General Swatch Styles */
+.fashion-swatch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid #ddd;
+    background: #fff;
+    transition: all 0.3s ease;
+    position: relative;
+    user-select: none;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.fashion-swatch:hover {
+    border-color: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fashion-swatch.selected {
+    border-color: #333;
+    box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.2);
+}
+
+.fashion-swatch:focus {
+    outline: none;
+    border-color: #333;
+    box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.2);
+}
+
+/* Size Swatches */
+.wc-size-swatch {
+    min-width: 40px;
+    height: 40px;
+    padding: 8px 12px;
+    color: #333;
+    background: #f8f8f8;
+    border-radius: 4px;
+}
+
+.wc-size-swatch.square {
+    border-radius: 0;
+}
+
+.wc-size-swatch.rounded {
+    border-radius: 8px;
+}
+
+.wc-size-swatch.circle {
+    border-radius: 50%;
+    min-width: 40px;
+    width: 40px;
+}
+
+.wc-size-swatch:hover {
+    background: #fff;
+    color: #000;
+}
+
+.wc-size-swatch.selected {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+/* Color Swatches */
+.wc-color-swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    position: relative;
+}
+
+.wc-color-swatch.square {
+    border-radius: 0;
+}
+
+.wc-color-swatch.rounded {
+    border-radius: 8px;
+}
+
+.wc-color-swatch.circle {
+    border-radius: 50%;
+}
+
+.wc-color-swatch:hover {
+    border-color: #333;
+    transform: scale(1.1);
+}
+
+.wc-color-swatch.selected {
+    border-color: #333;
+    transform: scale(1.1);
+}
+
+.wc-color-swatch.selected::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Tooltips */
+.fashion-variation-swatches-tooltips-enabled .fashion-swatch[title] {
+    position: relative;
+}
+
+.fashion-variation-swatches-tooltips-enabled .fashion-swatch[title]:hover::before {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 5px;
+}
+
+.fashion-variation-swatches-tooltips-enabled .fashion-swatch[title]:hover::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    margin-bottom: 1px;
+}
+
+/* Shop Filters */
+.fashion-variation-swatches-filters {
+    margin-bottom: 30px;
+}
+
+.fashion-variation-swatches-filter-widget {
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.fashion-variation-swatches-filter-widget .widget-title {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.fashion-variation-swatches-filter-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.wc-filter-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.wc-filter-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.fashion-filter-checkbox {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.fashion-size-filter-item .wc-size-swatch {
+    margin-right: 8px;
+    min-width: 30px;
+    height: 30px;
+    font-size: 11px;
+}
+
+.fashion-color-filter-item .wc-color-swatch {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.wc-filter-label {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.wc-filter-count {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Elementor Widget Styles */
+.elementor-widget-swatches {
+    margin: 0;
+}
+
+.fashion-size-swatches-widget,
+.fashion-color-swatches-widget {
+    text-align: left;
+}
+
+.fashion-size-swatches-title,
+.fashion-color-swatches-title {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.wc-color-swatch-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+.wc-color-swatch-item .wc-color-label {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Cart Item Color Preview */
+.wc-cart-color-preview {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .fashion-variation-swatches {
+        gap: 6px;
+    }
+    
+    .wc-size-swatch {
+        min-width: 35px;
+        height: 35px;
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+    
+    .wc-color-swatch {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .fashion-variation-swatches-filter-widget {
+        padding: 15px;
+    }
+    
+    .fashion-variation-swatches-filter-content {
+        gap: 8px;
+    }
+    
+    .fashion-size-swatches-title,
+    .fashion-color-swatches-title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wc-size-swatch {
+        min-width: 30px;
+        height: 30px;
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+    
+    .wc-color-swatch {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .wc-color-swatch-item {
+        margin-right: 10px;
+    }
+}
+
+/* Animation for loading states */
+.fashion-variation-swatches.loading .fashion-swatch {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .fashion-swatch {
+        border-width: 3px;
+    }
+    
+    .wc-size-swatch.selected {
+        background: #000;
+        color: #fff;
+    }
+    
+    .wc-color-swatch.selected {
+        border-color: #000;
+        border-width: 3px;
+    }
+}
+
+/* Focus styles for accessibility */
+.fashion-swatch:focus-visible {
+    outline: 2px solid #005fcc;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .fashion-variation-swatches-filters {
+        display: none;
+    }
+    
+    .fashion-swatch {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+} 
