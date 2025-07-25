@@ -88,7 +88,9 @@ final class Fashion_Variation_Swatches {
         }
 
         // Include required files
-        $this->includes();
+        if ( ! $this->includes() ) {
+            return;
+        }
         
         // Initialize components
         $this->init_components();
@@ -132,16 +134,41 @@ final class Fashion_Variation_Swatches {
      */
     private function includes() {
         // Core classes
-        require_once FASHION_VARIATION_SWATCHES_PLUGIN_DIR . 'includes/class-fashion-variation-swatches-core.php';
-        require_once FASHION_VARIATION_SWATCHES_PLUGIN_DIR . 'includes/class-fashion-variation-swatches-admin.php';
-        require_once FASHION_VARIATION_SWATCHES_PLUGIN_DIR . 'includes/class-fashion-variation-swatches-frontend.php';
-        require_once FASHION_VARIATION_SWATCHES_PLUGIN_DIR . 'includes/class-fashion-variation-swatches-attributes.php';
-        require_once FASHION_VARIATION_SWATCHES_PLUGIN_DIR . 'includes/class-fashion-variation-swatches-shop-filters.php';
+        $required_files = [
+            'includes/class-fashion-variation-swatches-core.php',
+            'includes/class-fashion-variation-swatches-admin.php',
+            'includes/class-fashion-variation-swatches-frontend.php',
+            'includes/class-fashion-variation-swatches-attributes.php',
+            'includes/class-fashion-variation-swatches-shop-filters.php',
+        ];
+
+        foreach ( $required_files as $file ) {
+            $file_path = FASHION_VARIATION_SWATCHES_PLUGIN_DIR . $file;
+            if ( file_exists( $file_path ) ) {
+                require_once $file_path;
+            } else {
+                // Log error and deactivate plugin if critical files are missing
+                error_log( 'Fashion Variation Swatches: Missing required file: ' . $file_path );
+                add_action( 'admin_notices', function() use ( $file ) {
+                    echo '<div class="notice notice-error"><p>';
+                    echo '<strong>Fashion Variation Swatches Error:</strong> ';
+                    echo 'Required file is missing: <code>' . esc_html( $file ) . '</code>. ';
+                    echo 'Please reinstall the plugin or contact support.';
+                    echo '</p></div>';
+                });
+                return false;
+            }
+        }
         
         // Elementor integration
         if ( defined( 'ELEMENTOR_VERSION' ) ) {
-            require_once FASHION_VARIATION_SWATCHES_PLUGIN_DIR . 'includes/elementor/class-fashion-variation-swatches-elementor.php';
+            $elementor_file = FASHION_VARIATION_SWATCHES_PLUGIN_DIR . 'includes/elementor/class-fashion-variation-swatches-elementor.php';
+            if ( file_exists( $elementor_file ) ) {
+                require_once $elementor_file;
+            }
         }
+
+        return true;
     }
 
     /**
@@ -149,14 +176,28 @@ final class Fashion_Variation_Swatches {
      */
     private function init_components() {
         // Initialize core functionality
-        Fashion_Variation_Swatches_Core::instance();
-        Fashion_Variation_Swatches_Admin::instance();
-        Fashion_Variation_Swatches_Frontend::instance();
-        Fashion_Variation_Swatches_Attributes::instance();
-        Fashion_Variation_Swatches_Shop_Filters::instance();
+        if ( class_exists( 'Fashion_Variation_Swatches_Core' ) ) {
+            Fashion_Variation_Swatches_Core::instance();
+        }
+        
+        if ( class_exists( 'Fashion_Variation_Swatches_Admin' ) ) {
+            Fashion_Variation_Swatches_Admin::instance();
+        }
+        
+        if ( class_exists( 'Fashion_Variation_Swatches_Frontend' ) ) {
+            Fashion_Variation_Swatches_Frontend::instance();
+        }
+        
+        if ( class_exists( 'Fashion_Variation_Swatches_Attributes' ) ) {
+            Fashion_Variation_Swatches_Attributes::instance();
+        }
+        
+        if ( class_exists( 'Fashion_Variation_Swatches_Shop_Filters' ) ) {
+            Fashion_Variation_Swatches_Shop_Filters::instance();
+        }
         
         // Initialize Elementor integration if available
-        if ( defined( 'ELEMENTOR_VERSION' ) ) {
+        if ( defined( 'ELEMENTOR_VERSION' ) && class_exists( 'Fashion_Variation_Swatches_Elementor' ) ) {
             Fashion_Variation_Swatches_Elementor::instance();
         }
     }
@@ -172,6 +213,34 @@ final class Fashion_Variation_Swatches {
      * Plugin activation
      */
     public function activate() {
+        // Check if all required files exist
+        $required_files = [
+            'includes/class-fashion-variation-swatches-core.php',
+            'includes/class-fashion-variation-swatches-admin.php',
+            'includes/class-fashion-variation-swatches-frontend.php',
+            'includes/class-fashion-variation-swatches-attributes.php',
+            'includes/class-fashion-variation-swatches-shop-filters.php',
+        ];
+
+        $missing_files = [];
+        foreach ( $required_files as $file ) {
+            if ( ! file_exists( FASHION_VARIATION_SWATCHES_PLUGIN_DIR . $file ) ) {
+                $missing_files[] = $file;
+            }
+        }
+
+        if ( ! empty( $missing_files ) ) {
+            // Deactivate plugin if critical files are missing
+            deactivate_plugins( plugin_basename( __FILE__ ) );
+            wp_die(
+                '<h1>Plugin Activation Error</h1>' .
+                '<p><strong>Fashion Variation Swatches</strong> could not be activated because the following required files are missing:</p>' .
+                '<ul><li>' . implode( '</li><li>', array_map( 'esc_html', $missing_files ) ) . '</li></ul>' .
+                '<p>Please reinstall the plugin or contact support.</p>' .
+                '<p><a href="' . admin_url( 'plugins.php' ) . '">Return to Plugins page</a></p>'
+            );
+        }
+
         // Create database tables if needed
         $this->create_tables();
         
@@ -224,6 +293,31 @@ final class Fashion_Variation_Swatches {
         if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
             \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
         }
+    }
+
+    /**
+     * Diagnostic function to check plugin integrity
+     */
+    public static function run_diagnostics() {
+        $required_files = [
+            'includes/class-fashion-variation-swatches-core.php',
+            'includes/class-fashion-variation-swatches-admin.php',
+            'includes/class-fashion-variation-swatches-frontend.php',
+            'includes/class-fashion-variation-swatches-attributes.php',
+            'includes/class-fashion-variation-swatches-shop-filters.php',
+        ];
+
+        $results = [];
+        foreach ( $required_files as $file ) {
+            $file_path = FASHION_VARIATION_SWATCHES_PLUGIN_DIR . $file;
+            $results[ $file ] = [
+                'exists' => file_exists( $file_path ),
+                'readable' => is_readable( $file_path ),
+                'path' => $file_path,
+            ];
+        }
+
+        return $results;
     }
 }
 

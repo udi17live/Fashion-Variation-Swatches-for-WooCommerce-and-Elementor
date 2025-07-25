@@ -69,10 +69,13 @@ function fashion_variation_swatches_package_plugin() {
         'USER-GUIDE.md',
         'QUICK-START.md',
         'README-HPOS.md',
+        'TROUBLESHOOTING.md',
         
         // Utility files
         'demo-setup.php',
         'test-hpos-compatibility.php',
+        'plugin-diagnostics.php',
+        'verify-installation.php',
         
         // Directories
         'assets/',
