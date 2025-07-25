@@ -3,7 +3,7 @@
  * Plugin Name: Fashion Variation Swatches for WooCommerce and Elementor
  * Plugin URI: https://github.com/uditha-mahindarathna/fashion-variation-swatches
  * Description: Add beautiful size and color variation swatches to WooCommerce products with Elementor widget support. Perfect for fashion and apparel stores. Compatible with WooCommerce HPOS.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Uditha Mahindarathna
  * Author URI: mailto:melan.udi@gmail.com
  * Text Domain: fashion-variation-swatches
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'FASHION_VARIATION_SWATCHES_VERSION', '1.0.1' );
+define( 'FASHION_VARIATION_SWATCHES_VERSION', '1.0.2' );
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_FILE', __FILE__ );
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'FASHION_VARIATION_SWATCHES_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
