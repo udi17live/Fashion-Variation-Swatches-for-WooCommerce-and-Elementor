@@ -3,7 +3,7 @@
  * Plugin Name:       Fashion Variation Swatches for WooCommerce and Elementor
  * Plugin URI:        https://github.com/udi17live/fashion-variation-swatches-for-woocommerce-elementor
  * Description:       A beautiful and professional WordPress plugin that transforms WooCommerce product variations into stunning, user-friendly swatches.
- * Version:           1.0.5
+ * Version:           1.0.6
  * Author:            Uditha Mahindarathna
  * Author URI:        https://github.com/udi17live
  * License:           GPL-2.0+
@@ -13,6 +13,14 @@
  *
  * WC requires at least: 5.0
  * WC tested up to: 8.0
+ * WC requires at least: 5.0
+ * WC tested up to: 8.0
+ * Requires at least: 5.0
+ * Tested up to: 6.8
+ * Requires PHP: 7.4
+ * WC requires at least: 5.0
+ * WC tested up to: 8.0
+ * HPOS Compatible: true
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,6 +55,44 @@ function fvs_activation_directory_check() {
 }
 register_activation_hook( __FILE__, 'fvs_activation_directory_check' );
 
+/**
+ * Plugin activation hook
+ */
+function fvs_activate_plugin() {
+    // Check if WooCommerce is active
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        deactivate_plugins( plugin_basename( __FILE__ ) );
+        wp_die( 
+            esc_html__( 'Fashion Variation Swatches requires WooCommerce to be installed and activated.', 'fashion-variation-swatches' ),
+            esc_html__( 'Plugin Activation Error', 'fashion-variation-swatches' ),
+            [ 'back_link' => true ]
+        );
+    }
+
+    // Set default options
+    add_option( 'fashion_variation_swatches_size_attribute', 'pa_size' );
+    add_option( 'fashion_variation_swatches_color_attribute', 'pa_color' );
+    add_option( 'fashion_variation_swatches_size_style', 'circle' );
+    add_option( 'fashion_variation_swatches_color_style', 'circle' );
+    add_option( 'fashion_variation_swatches_enable_tooltip', 'yes' );
+    add_option( 'fashion_variation_swatches_enable_shop_filters', 'yes' );
+
+    // Flush rewrite rules
+    flush_rewrite_rules();
+}
+
+register_activation_hook( __FILE__, 'fvs_activate_plugin' );
+
+/**
+ * Plugin deactivation hook
+ */
+function fvs_deactivate_plugin() {
+    // Flush rewrite rules
+    flush_rewrite_rules();
+}
+
+register_deactivation_hook( __FILE__, 'fvs_deactivate_plugin' );
+
 
 /**
  * Define plugin constants for paths and URLs.
@@ -64,6 +110,25 @@ if ( ! defined( 'FVS_PLUGIN_URL' ) ) {
 }
 if ( ! defined( 'FVS_PLUGIN_BASENAME' ) ) {
     define( 'FVS_PLUGIN_BASENAME', plugin_basename( FVS_PLUGIN_FILE ) );
+}
+
+// Define the constant that the admin class expects
+if ( ! defined( 'FASHION_VARIATION_SWATCHES_PLUGIN_BASENAME' ) ) {
+    define( 'FASHION_VARIATION_SWATCHES_PLUGIN_BASENAME', FVS_PLUGIN_BASENAME );
+}
+
+// Define additional constants that the admin class expects
+if ( ! defined( 'FASHION_VARIATION_SWATCHES_PLUGIN_URL' ) ) {
+    define( 'FASHION_VARIATION_SWATCHES_PLUGIN_URL', FVS_PLUGIN_URL );
+}
+
+if ( ! defined( 'FASHION_VARIATION_SWATCHES_VERSION' ) ) {
+    define( 'FASHION_VARIATION_SWATCHES_VERSION', '1.0.6' );
+}
+
+// Define plugin directory constant for utility files
+if ( ! defined( 'FASHION_VARIATION_SWATCHES_PLUGIN_DIR' ) ) {
+    define( 'FASHION_VARIATION_SWATCHES_PLUGIN_DIR', FVS_PLUGIN_PATH );
 }
 
 
@@ -104,5 +169,48 @@ function fvs_include_required_files() {
 
 add_action( 'plugins_loaded', 'fvs_include_required_files' );
 
-// The rest of your plugin initialization code would go here.
+/**
+ * Initialize the plugin classes after all files are loaded.
+ */
+function fvs_init_plugin() {
+    // Check if WooCommerce is active
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        add_action( 'admin_notices', function() {
+            echo '<div class="error"><p>' . 
+                 esc_html__( 'Fashion Variation Swatches requires WooCommerce to be installed and activated.', 'fashion-variation-swatches' ) . 
+                 '</p></div>';
+        } );
+        return;
+    }
+
+    // Initialize the core plugin class
+    Fashion_Variation_Swatches_Core::instance();
+    
+    // Initialize the admin class only in admin area
+    if ( is_admin() ) {
+        Fashion_Variation_Swatches_Admin::instance();
+    }
+    
+    // Initialize the frontend class
+    Fashion_Variation_Swatches_Frontend::instance();
+    
+    // Initialize the attributes class
+    Fashion_Variation_Swatches_Attributes::instance();
+    
+    // Initialize the shop filters class
+    Fashion_Variation_Swatches_Shop_Filters::instance();
+}
+
+add_action( 'plugins_loaded', 'fvs_init_plugin', 20 );
+
+/**
+ * Declare HPOS (High-Performance Order Storage) compatibility
+ */
+function fvs_declare_hpos_compatibility() {
+    if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+    }
+}
+
+add_action( 'before_woocommerce_init', 'fvs_declare_hpos_compatibility' );
 

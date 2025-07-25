@@ -127,7 +127,7 @@ function fashion_variation_swatches_package_plugin() {
     }
     
     // Create ZIP file
-    $zip_filename = $plugin_name . '-v' . $version . '.zip';
+    $zip_filename = $plugin_name . '.zip';
     $zip_path = $package_dir . '/' . $zip_filename;
     
     $zip = new ZipArchive();

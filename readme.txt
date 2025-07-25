@@ -1,12 +1,13 @@
 === Fashion Variation Swatches for WooCommerce and Elementor ===
 Contributors: uditha-mahindarathna
-Tags: woocommerce, variations, swatches, colors, sizes, elementor, fashion, apparel, ecommerce
+Tags: woocommerce, variations, swatches, colors, sizes, elementor, fashion, apparel, ecommerce, hpos-compatible
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+HPOS Compatible: true
 
 Add beautiful size and color variation swatches to WooCommerce products with Elementor widget support. Perfect for fashion and apparel stores.
 

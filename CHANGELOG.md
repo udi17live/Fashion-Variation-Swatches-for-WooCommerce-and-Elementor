@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2025-01-27
+
+### Fixed
+- **Critical Constant Definition Bug**: Fixed fatal error when accessing plugin settings page due to undefined constants
+- **Admin Settings Access**: Resolved `FASHION_VARIATION_SWATCHES_PLUGIN_URL` undefined constant error
+- **Version Constant**: Added missing `FASHION_VARIATION_SWATCHES_VERSION` constant definition
+- **Plugin Directory Constant**: Added `FASHION_VARIATION_SWATCHES_PLUGIN_DIR` constant for utility files
+- **Admin Asset Loading**: Fixed CSS and JS asset loading in admin area
+- **Settings Page Functionality**: Plugin settings page now loads correctly without fatal errors
+
+### Technical Improvements
+- **Enhanced Constant Management**: Properly defined all required constants in main plugin file
+- **Improved Error Prevention**: Added comprehensive constant checks to prevent undefined constant errors
+- **Better Code Organization**: Centralized constant definitions for better maintainability
+- **Admin Interface Stability**: Ensured stable admin interface functionality
+
+### Compatibility
+- **WordPress Admin**: Fixed compatibility with WordPress admin interface
+- **WooCommerce Integration**: Improved integration with WooCommerce admin menu
+- **Settings Page Access**: Settings page now accessible under WooCommerce > Variation Swatches
+
 ## [1.0.0] - 2025-01-27
 
 ### Added
